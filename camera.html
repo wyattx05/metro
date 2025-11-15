@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./icons/appbar.os.windows.8.png" type="image/x-icon">
+    <link href="https://cdn.metroui.org.ua/current/icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="camera.css">
+    <title>Camera - Windows Phone</title>
+</head>
+<body>
+    <div class="status-bar">
+        <div><span class="mdi mdi-battery"></span></div>
+        <div id="clock"></div>
+    </div>
+    
+    <div class="camera-container">
+        <video id="camera-feed" autoplay playsinline></video>
+        <canvas id="camera-canvas" style="display: none;"></canvas>
+        
+        <!-- Camera controls overlay -->
+        <div class="camera-controls">
+            <!-- Top controls -->
+            <div class="camera-top-controls">
+                <button class="camera-btn" id="flash-btn" title="Flash">
+                    <span class="mdi mdi-flash-off"></span>
+                </button>
+                <button class="camera-btn" id="grid-btn" title="Grid">
+                    <span class="mdi mdi-grid"></span>
+                </button>
+            </div>
+            
+            <!-- Bottom controls -->
+            <div class="camera-bottom-controls">
+                <button class="camera-btn gallery-btn" id="gallery-btn" title="Gallery">
+                    <div class="gallery-preview"></div>
+                </button>
+                
+                <button class="shutter-btn" id="shutter-btn" title="Take Photo">
+                    <div class="shutter-outer">
+                        <div class="shutter-inner"></div>
+                    </div>
+                </button>
+                
+                <button class="camera-btn switch-btn" id="switch-camera-btn" title="Switch Camera">
+                    <span class="mdi mdi-camera-flip"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Flash effect -->
+        <div class="flash-effect" id="flash-effect"></div>
+        
+        <!-- Error message -->
+        <div class="camera-error" id="camera-error" style="display: none;">
+            <p>Camera access denied or unavailable</p>
+        </div>
+    </div>
+    
+    <div class="nav-bar">
+        <button onclick="window.location.href='index.html'"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="window.location.href='index.html'"><span class="mif-windows mif-2x"></span></button>
+        <button><span class="mif-search mif-2x"></span></button>
+    </div>
+    
+    <script src="./script.js"></script>
+    <script src="./camera.js"></script>
+</body>
+</html>

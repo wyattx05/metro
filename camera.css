@@ -1,0 +1,250 @@
+/* Camera App Styles */
+.camera-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px); /* Account for status bar and nav bar */
+    background: #000;
+    overflow: hidden;
+}
+
+#camera-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.camera-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.camera-top-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px;
+    pointer-events: all;
+}
+
+.camera-bottom-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px 20px 40px;
+    pointer-events: all;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+.camera-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.camera-btn:active {
+    transform: scale(0.95);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.camera-btn .mdi {
+    font-size: 24px;
+}
+
+/* Shutter Button */
+.shutter-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s ease;
+}
+
+.shutter-btn:active {
+    transform: scale(0.9);
+}
+
+.shutter-outer {
+    width: 80px;
+    height: 80px;
+    border: 4px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.shutter-inner {
+    width: 65px;
+    height: 65px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.1s ease;
+}
+
+.shutter-btn:active .shutter-inner {
+    transform: scale(0.85);
+}
+
+/* Gallery Preview Button */
+.gallery-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+
+.gallery-preview {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-preview::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M3,3H11V11H3V3M13,3H21V11H13V3M3,13H11V21H3V13M13,13H21V21H13V13Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Switch Camera Button */
+.switch-btn {
+    position: relative;
+}
+
+/* Flash Effect */
+.flash-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.1s ease;
+}
+
+.flash-effect.active {
+    animation: flashAnimation 0.3s ease;
+}
+
+@keyframes flashAnimation {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Camera Error */
+.camera-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 20;
+    font-size: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.camera-error p {
+    margin: 0;
+}
+
+/* Active state for flash button */
+.camera-btn.flash-on .mdi-flash-off::before {
+    content: "\F0E7";
+}
+
+/* Grid overlay */
+.camera-container::before,
+.camera-container::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.camera-container.grid-active::before,
+.camera-container.grid-active::after {
+    opacity: 1;
+}
+
+.camera-container::before {
+    top: 33.33%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    box-shadow: 0 33.33vh 0 rgba(255, 255, 255, 0.2);
+}
+
+.camera-container::after {
+    left: 33.33%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    box-shadow: 33.33vw 0 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .camera-bottom-controls {
+        padding: 20px 10px 30px;
+    }
+    
+    .camera-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .shutter-outer {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .shutter-inner {
+        width: 55px;
+        height: 55px;
+    }
+}

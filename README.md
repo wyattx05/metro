@@ -1,5 +1,8 @@
 ## Windows Phone Web UI
 
+## Forked from 4rnv/metro
+### Goal is to turn into a laucnher for ios can open apps in IOS and have more features in launcher
+
 ### Classic Start screen
 <img src="ss/start.png" alt="Classic Start screen" height="400">
 
