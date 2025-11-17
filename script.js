@@ -107,10 +107,12 @@ function handleGesture(pointer) {
   const swipeDistance = touchendX - touchstartX;
 
   if (pointer === 1) {
+    // Info page is open - swipe left to right to close
     if (swipeDistance > swipeThreshold) {
       toggleAllApps();
     }
   } else if (pointer === 0) {
+    // Main screen - swipe left (negative distance) to open info page
     if (swipeDistance < -swipeThreshold) {
       toggleAllApps();
     }
@@ -243,3 +245,190 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 
 setInterval(flipTile, 10000);
+
+// Control Center Functionality
+const controlCenter = document.getElementById('control-center');
+const controlOverlay = document.getElementById('control-overlay');
+const statusBar = document.getElementById('status-bar');
+let startY = 0;
+let currentY = 0;
+let isDragging = false;
+
+// Click/tap status bar to toggle control center
+statusBar.addEventListener('click', (e) => {
+  if (controlCenter.classList.contains('active')) {
+    closeControlCenter();
+  } else {
+    openControlCenter();
+  }
+});
+
+// Touch events for swipe down
+statusBar.addEventListener('touchstart', (e) => {
+  startY = e.touches[0].clientY;
+  isDragging = true;
+}, { passive: true });
+
+statusBar.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  
+  currentY = e.touches[0].clientY;
+  const deltaY = currentY - startY;
+  
+  // Only open when swiping down from status bar
+  if (deltaY > 0 && deltaY < 200) {
+    controlCenter.style.transform = `translateY(${deltaY - 100}%)`;
+  }
+}, { passive: true });
+
+statusBar.addEventListener('touchend', (e) => {
+  if (!isDragging) return;
+  isDragging = false;
+  
+  const deltaY = currentY - startY;
+  
+  // Open control center if swiped down more than 50px
+  if (deltaY > 50) {
+    openControlCenter();
+  } else {
+    controlCenter.style.transform = '';
+  }
+});
+
+// Close control center when tapping overlay
+controlOverlay.addEventListener('click', closeControlCenter);
+
+// Swipe up to close control center
+controlCenter.addEventListener('touchstart', (e) => {
+  startY = e.touches[0].clientY;
+}, { passive: true });
+
+controlCenter.addEventListener('touchmove', (e) => {
+  if (!controlCenter.classList.contains('active')) return;
+  
+  currentY = e.touches[0].clientY;
+  const deltaY = currentY - startY;
+  
+  // Only close when swiping up
+  if (deltaY < 0) {
+    controlCenter.style.transform = `translateY(${deltaY}px)`;
+  }
+}, { passive: true });
+
+controlCenter.addEventListener('touchend', (e) => {
+  if (!controlCenter.classList.contains('active')) return;
+  
+  const deltaY = currentY - startY;
+  
+  // Close if swiped up more than 100px
+  if (deltaY < -100) {
+    closeControlCenter();
+  } else {
+    controlCenter.style.transform = '';
+  }
+});
+
+function openControlCenter() {
+  controlCenter.classList.add('active');
+  controlOverlay.classList.add('active');
+  controlCenter.style.transform = '';
+}
+
+function closeControlCenter() {
+  controlCenter.classList.remove('active');
+  controlOverlay.classList.remove('active');
+  controlCenter.style.transform = '';
+}
+
+// Toggle quick actions
+document.querySelectorAll('.quick-action').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.classList.toggle('active');
+  });
+});
+
+// Search Page Functionality
+const searchPage = document.getElementById('search-page');
+const searchInput = document.getElementById('search-input');
+const searchApps = document.getElementById('search-apps');
+
+function toggleSearch() {
+  const startScreen = document.getElementById('start-screen');
+  searchPage.classList.toggle('active');
+  
+  if (searchPage.classList.contains('active')) {
+    // Move apps to the left when search opens
+    startScreen.classList.add('search-open');
+    // Focus input when opening
+    setTimeout(() => searchInput.focus(), 100);
+  } else {
+    // Move apps back when search closes
+    startScreen.classList.remove('search-open');
+    // Clear search when closing
+    searchInput.value = '';
+    searchApps.innerHTML = '';
+  }
+}
+
+// Get all tiles from the main grid
+const allTiles = Array.from(document.querySelectorAll('.tile')).map(tile => {
+  const iconName = tile.querySelector('.icon-name')?.textContent || '';
+  const href = tile.getAttribute('href') || '#';
+  const icon = tile.querySelector('.mdi, svg')?.outerHTML || '';
+  
+  return {
+    name: iconName,
+    href: href,
+    icon: icon
+  };
+});
+
+// Search functionality
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  
+  if (query === '') {
+    searchApps.innerHTML = '';
+    return;
+  }
+  
+  // Filter tiles based on query
+  const results = allTiles.filter(tile => 
+    tile.name.toLowerCase().includes(query)
+  );
+  
+  // Display results
+  if (results.length === 0) {
+    searchApps.innerHTML = '<div class="search-no-results">no results found</div>';
+  } else {
+    searchApps.innerHTML = results.map(tile => `
+      <a href="${tile.href}" class="search-app-item">
+        <div class="search-app-icon">${tile.icon}</div>
+        <div class="search-app-name">${tile.name}</div>
+      </a>
+    `).join('');
+  }
+});
+
+// Add swipe-to-close for search page
+searchPage.addEventListener('touchstart', (e) => {
+  touchstartX = e.changedTouches[0].screenX;
+});
+
+searchPage.addEventListener('touchend', (e) => {
+  touchendX = e.changedTouches[0].screenX;
+  const swipeDistance = touchendX - touchstartX;
+  
+  // Swipe right (positive distance) to close search page
+  if (swipeDistance > swipeThreshold) {
+    toggleSearch();
+  }
+});
+
+// Action button click handlers
+document.querySelectorAll('.action-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    console.log('Action clicked:', this.querySelector('span:last-child').textContent);
+  });
+});
+

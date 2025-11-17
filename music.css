@@ -1,0 +1,104 @@
+/* Music App Styles */
+.music-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 90px);
+    margin-top: 40px;
+    color: white;
+    background: #000;
+    position: relative;
+    z-index: 1;
+}
+
+.music-header {
+    padding: 5px 10px 5px 10px;
+}
+
+.music-header h1 {
+    font-size: 3.5rem;
+    font-weight: 100;
+    margin: 0 0 10px 0;
+    letter-spacing: -1px;
+}
+
+.music-tabs {
+    display: flex;
+    gap: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.music-tab {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    font-family: 'Segoe UI light', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 12px 0;
+    cursor: pointer;
+    position: relative;
+    text-transform: lowercase;
+    font-weight: 300;
+}
+
+.music-tab.active {
+    color: white;
+}
+
+.music-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+}
+
+.music-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px;
+}
+
+.music-tab-content {
+    display: none;
+    padding-top: 10px;
+}
+
+.music-tab-content.active {
+    display: block;
+}
+
+.artist-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+.artist-item:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.play-icon {
+    margin-right: 15px;
+    font-size: 14px;
+    color: white;
+}
+
+.artist-name {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: white;
+}
+
+.letter-divider {
+    background: var(--accent);
+    color: white;
+    padding: 5px 10px;
+    margin: 10px -10px;
+    font-size: 1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}

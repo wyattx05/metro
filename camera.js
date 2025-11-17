@@ -141,15 +141,11 @@ async function switchCamera() {
     await initCamera();
 }
 
-// Open gallery (placeholder - opens photos app on iOS)
+// Open gallery
 function openGallery() {
     // Try to open native photos app
     window.location.href = 'photos-redirect://';
-    
-    // Fallback - show message
-    setTimeout(() => {
-        alert('Gallery feature: Photos would open here');
-    }, 500);
+
 }
 
 // Cleanup on page unload

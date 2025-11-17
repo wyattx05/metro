@@ -11,7 +11,93 @@
 </head>
 <body>
     <canvas id="blur-canvas"></canvas>
-    <div class="status-bar">
+    
+    <!-- Control Center Overlay -->
+    <div class="control-overlay" id="control-overlay"></div>
+    
+    <!-- Control Center -->
+    <div class="control-center" id="control-center">
+        <div class="control-header">
+            <h2>CONTROL CENTER</h2>
+            <h1>settings</h1>
+        </div>
+        
+        <!-- Quick Actions Row 1 -->
+        <div class="quick-actions-row">
+            <button class="quick-action" id="wifi-toggle" title="Wi-Fi">
+                <span class="mdi mdi-wifi"></span>
+            </button>
+            <button class="quick-action" id="bluetooth-toggle" title="Bluetooth">
+                <span class="mdi mdi-bluetooth"></span>
+            </button>
+            <button class="quick-action" id="cellular-toggle" title="Cellular">
+                <span class="mdi mdi-signal"></span>
+            </button>
+            <button class="quick-action" id="airplane-toggle" title="Airplane mode">
+                <span class="mdi mdi-airplane"></span>
+            </button>
+            <button class="quick-action" id="location-toggle" title="Location">
+                <span class="mdi mdi-map-marker"></span>
+            </button>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-flashlight"></span>
+                </div>
+                <span>Flash</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-information-outline"></span>
+                </div>
+                <span>Status</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-message-text"></span>
+                </div>
+                <span>SMS</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-email"></span>
+                </div>
+                <span>Email</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-account"></span>
+                </div>
+                <span>Accounts</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-lock"></span>
+                </div>
+                <span>Lock</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-calendar"></span>
+                </div>
+                <span>Appointment</span>
+            </div>
+            <div class="action-btn">
+                <div class="action-icon">
+                    <span class="mdi mdi-card-account-details"></span>
+                </div>
+                <span>Contact</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status-bar" id="status-bar">
         <div><span class="mdi mdi-battery"></span></div>
         <div id="clock"></div>
     </div>
@@ -38,9 +124,10 @@
         </div>
 
         <div class="tile">
-            <a href="calshow:TIME//" target="_blank"></a>
+            <a href="calshow:TIME//" target="_blank">
             <span class="icon" id="calendar">
             </span>
+            </a>
             <p class="icon-name">Calendar</p>
         </div>
 
@@ -67,12 +154,13 @@
         </div>
 
         <div class="tile">
-            <a href="contacts://" target="_blank"></a>
+            <a href="contacts://" target="_blank">
             <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" width="76" height="76" viewBox="0 0 76.00 76.00" enable-background="new 0 0 76.00 76.00" xml:space="preserve">
                     <path fill="currentColor" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 38,17C 40.9455,17 43.3333,19.3878 43.3333,22.3333C 43.3333,25.2788 40.9455,27.6667 38,27.6667C 35.0545,27.6667 32.6667,25.2788 32.6667,22.3333C 32.6667,19.3878 35.0545,17 38,17 Z M 32.6666,34.3834C 31.9555,34.7389 30.7833,37.8333 31.4262,38.2501L 27.964,37.6132C 30.3193,36.76 30.7911,35.3344 30.9823,32.7335L 30.8009,31.1163C 31.5744,30.4725 32.7185,29.0501 33.7333,29.0502L 42.2666,29.0502C 43.3037,29.0501 44.2149,29.4913 44.9999,30.1593L 45.4999,32.0001C 45.4999,34.1736 47.1556,34.8271 48.886,35.8798L 46.4666,35.8292C 45.8376,35.8068 45.2551,35.9483 44.7188,36.2059C 44.2645,35.4252 43.7029,34.5682 43.3333,34.3834L 43.4534,37.0835C 41.1956,39.1569 40.0666,43.0679 40.0666,43.0679L 39.6764,45.0053L 38.5333,45.05C 37.7661,45.05 37.0129,44.99 36.2782,44.8745C 35.6933,43.3208 34.4183,40.5162 32.4533,39.2079L 32.6666,34.3834 Z M 24.7333,26.95C 27.6789,26.95 30.0667,29.3378 30.0667,32.2833C 30.0667,35.2288 27.6789,37.6167 24.7333,37.6167C 21.7878,37.6167 19.4,35.2288 19.4,32.2833C 19.4,29.3378 21.7878,26.95 24.7333,26.95 Z M 19.4,44.3333C 18.6889,44.6889 17.2667,47.5333 17.2667,47.5333C 17.2667,47.5333 16.5556,48.6 16.2,52.8666L 13,51.8L 14.0667,46.4667C 14.0667,46.4667 16.2,39 20.4666,39.0001L 28.9999,39.0001C 33.2667,39 35.4,46.4667 35.4,46.4667L 36.4666,51.8L 33.2667,52.8667C 32.9111,48.6 32.2001,47.5333 32.2001,47.5333C 32.2001,47.5333 30.7778,44.6889 30.0667,44.3333L 30.4976,54.0204C 28.8762,54.6529 27.112,55 25.2667,55C 23.0173,55 20.8884,54.4843 18.9918,53.5646L 19.4,44.3333 Z M 51.7333,24.931C 54.6788,25.0359 57.0667,27.5087 57.0667,30.4542C 57.0667,33.3997 54.6788,35.7025 51.7333,35.5977C 48.7878,35.4928 46.4,33.02 46.4,30.0745C 46.4,27.129 48.7878,24.8262 51.7333,24.931 Z M 46.4,42.1245C 45.6889,42.4547 44.2667,45.2485 44.2667,45.2485C 44.2667,45.2485 43.5556,46.2898 43.2,50.5438L 40,49.3632L 41.0667,44.0679C 41.0667,44.0679 43.2,36.6772 47.4666,36.8292L 55.9999,37.133C 60.2667,37.2848 62.4,44.8274 62.4,44.8274L 63.4666,50.1988L 60.2667,51.1515C 59.9111,46.8722 59.2001,45.7802 59.2001,45.7802C 59.2001,45.7802 57.7778,42.8851 57.0667,42.5042L 57.4976,52.2067C 55.8762,52.7814 54.112,53.0657 52.2667,53C 50.0173,52.9199 47.8884,52.3284 45.9918,51.3412L 46.4,42.1245 Z "/>
                 </svg>                
             </span>
+            </a>
             <p class="icon-name">People</p>
         </div>
 
@@ -88,12 +176,13 @@
           </div>
 
         <div class="tile">
-            <a href="photos://" target="_blank"></a>
+            <a href="photos-redirect://" target="_blank">
             <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" width="76" height="76" viewBox="0 0 76.00 76.00" enable-background="new 0 0 76.00 76.00" xml:space="preserve">
                     <path fill="currentColor" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 17,20L 59,20L 59,56L 17,56L 17,20 Z M 20,23L 20,53L 56,53L 56,23L 20,23 Z M 24,51L 30.0833,44.3333L 33.25,47.5L 45.9167,34.8333L 50.6667,39.5833L 54,36L 54,51L 24,51 Z M 30.0833,26.9167C 30.0833,30.4145 27.2478,33.25 23.75,33.25C 23.2033,33.25 22.5061,33.1302 22,33L 22,25L 29.6666,25C 29.7968,25.5061 30.0833,26.3699 30.0833,26.9167 Z "/>
                 </svg>
             </span>
+            </a>
             <p class="icon-name">Photos</p>
         </div>
 
@@ -109,23 +198,23 @@
         </div>
 
         <div class="tile large">
-            <a href="games://" target="_blank"></a>
+            <a href="games://" target="_blank">
             <span class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 24 24">
                     <path fill="currentColor" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M6.43,3.72C6.5,3.66 6.57,3.6 6.62,3.56C8.18,2.55 10,2 12,2C13.88,2 15.64,2.5 17.14,3.42C17.25,3.5 17.54,3.69 17.7,3.88C16.25,2.28 12,5.7 12,5.7C10.5,4.57 9.17,3.8 8.16,3.5C7.31,3.29 6.73,3.5 6.46,3.7M19.34,5.21C19.29,5.16 19.24,5.11 19.2,5.06C18.84,4.66 18.38,4.56 18,4.59C17.61,4.71 15.9,5.32 13.8,7.31C13.8,7.31 16.17,9.61 17.62,11.96C19.07,14.31 19.93,16.16 19.4,18.73C21,16.95 22,14.59 22,12C22,9.38 21,7 19.34,5.21M15.73,12.96C15.08,12.24 14.13,11.21 12.86,9.95C12.59,9.68 12.3,9.4 12,9.1C12,9.1 11.53,9.56 10.93,10.17C10.16,10.94 9.17,11.95 8.61,12.54C7.63,13.59 4.81,16.89 4.65,18.74C4.65,18.74 4,17.28 5.4,13.89C6.3,11.68 9,8.36 10.15,7.28C10.15,7.28 9.12,6.14 7.82,5.35L7.77,5.32C7.14,4.95 6.46,4.66 5.8,4.62C5.13,4.67 4.71,5.16 4.71,5.16C3.03,6.95 2,9.35 2,12A10,10 0 0,0 12,22C14.93,22 17.57,20.74 19.4,18.73C19.4,18.73 19.19,17.4 17.84,15.5C17.53,15.07 16.37,13.69 15.73,12.96Z" />
                 </svg>
             </span>
+            </a>
             <p class="icon-name">Xbox</p>
         </div>
 
         <div class="tile">
-            <a href="googledrive://" target="_blank"></a>
+            <a href="music.html">
             <span class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" width="76" height="76" viewBox="0 0 76.00 76.00" enable-background="new 0 0 76.00 76.00" xml:space="preserve">
-                    <path fill="currentColor" fill-opacity="1" stroke-linejoin="round" d="M 23,19L 53,19L 56.9999,25.0001L 57,27L 19,27L 19,25.0001L 23,19 Z M 19,42L 19,29.0001L 56.9999,29.0001L 57,42L 54.038,42L 52.7168,35.7843L 23.4742,42L 19,42 Z M 34,33L 34,35L 42,35L 42,33L 34,33 Z M 19,57L 19,44L 56.9999,44L 57,57L 19,57 Z M 34,48L 34,50L 42,50L 42,48L 34,48 Z "/>
-                </svg>                
+                <span class="mdi mdi-music-note" style="font-size: 76px;"></span>
             </span>
-            <p class="icon-name">File Explorer</p>
+            </a>
+            <p class="icon-name">Music</p>
         </div>
 
         <div class="tile">
@@ -248,10 +337,24 @@
         </div>
     </div>
     </div>
+    
+    <!-- Search Page -->
+    <div class="search-page" id="search-page">
+        <div class="search-header">
+            <input type="text" id="search-input" placeholder="search" autocomplete="off">
+        </div>
+        <div class="search-results" id="search-results">
+            <div class="search-category">
+                <h3>apps</h3>
+                <div class="search-apps" id="search-apps"></div>
+            </div>
+        </div>
+    </div>
+    
     <div class="nav-bar">
         <button onclick="toggleAllApps()"><span class="mif-backspace mif-2x"></span></button>
         <button onclick="toggleAllApps()"><span class="mif-windows mif-2x"></span></button>
-        <button><span class="mif-search mif-2x"></span></button>
+        <button onclick="toggleSearch()" id="search-button"><span class="mif-search mif-2x"></span></button>
     </div>
     <div class="context-menu" id="custom-menu">
         <ul>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="music.css">
+</head>
+<body style="background: #000;">
+    <div class="status-bar" id="status-bar">
+        <span id="clock"></span>
+    </div>
+
+    <div class="music-page">
+        <div class="music-header">
+            <h1>MUSIC</h1>
+            <div class="music-tabs">
+                <button class="music-tab active" data-tab="artists">artists</button>
+                <button class="music-tab" data-tab="albums">albums</button>
+                <button class="music-tab" data-tab="songs">songs</button>
+            </div>
+        </div>
+
+        <div class="music-content">
+            <div class="music-tab-content active" id="artists">
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Bassnectar</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Beyoncé</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Boyce Avenue</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Brian Eno</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Bruno Mars</span>
+                </div>
+                <div class="letter-divider">C</div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Colette</span>
+                </div>
+            </div>
+
+            <div class="music-tab-content" id="albums">
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Album 1</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Album 2</span>
+                </div>
+            </div>
+
+            <div class="music-tab-content" id="songs">
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Song 1</span>
+                </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Song 2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="window.location.href='index.html'"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="window.location.href='index.html'"><span class="mif-windows mif-2x"></span></button>
+        <button><span class="mif-search mif-2x"></span></button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="music.js"></script>
+</body>
+</html>
