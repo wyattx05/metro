@@ -1,0 +1,132 @@
+/* About Page Styles */
+
+.about-page {
+    padding: 60px 20px 80px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: pageEnter 0.3s ease-out;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-header {
+    margin-bottom: 30px;
+}
+
+.about-header h2 {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.about-header h1 {
+    font-size: 48px;
+    font-weight: 200;
+    margin: 5px 0 0 0;
+    line-height: 1.1;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.about-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.about-section h3 {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 0 15px 0;
+    color: var(--accent, #1BA1E2);
+}
+
+.about-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+    opacity: 0.9;
+}
+
+.about-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Features List */
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.features-list li {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.features-list li .mdi {
+    font-size: 32px;
+    color: var(--accent, #1BA1E2);
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.features-list li strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.features-list li p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+/* Tech List */
+.tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.tech-list li {
+    font-size: 14px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent, #1BA1E2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .about-header h1 {
+        font-size: 36px;
+    }
+    
+    .features-list li .mdi {
+        font-size: 28px;
+    }
+    
+    .features-list li strong {
+        font-size: 16px;
+    }
+    
+    .tech-list {
+        grid-template-columns: 1fr;
+    }
+}

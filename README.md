@@ -41,3 +41,4 @@
 
 ### Features To Add
 - Working Music & Weather App 
+_ Fix IoS Web App Glitches

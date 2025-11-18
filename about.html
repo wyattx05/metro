@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>About - Windows Phone</title>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body style="background: #000;">
+    <div class="status-bar" id="status-bar">
+        <span id="clock"></span>
+    </div>
+
+    <div class="about-page">
+        <div class="about-header">
+            <h2>ABOUT</h2>
+            <h1>metro ui</h1>
+        </div>
+
+        <div class="about-content">
+            <section class="about-section">
+                <h3>Overview</h3>
+                <p>A modern recreation of the iconic Windows Phone Metro UI, bringing the beautiful and intuitive tile-based interface to the web. Experience the smooth animations, gesture-based navigation, and minimalist design that made Windows Phone unique.</p>
+            </section>
+
+            <section class="about-section">
+                <h3>Features</h3>
+                <ul class="features-list">
+                    <li>
+                        <span class="mdi mdi-gesture-swipe"></span>
+                        <div>
+                            <strong>Gesture Navigation</strong>
+                            <p>Swipe right to open info panel, swipe left for search</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-view-dashboard"></span>
+                        <div>
+                            <strong>Live Tiles</strong>
+                            <p>Dynamic tiles with live updating content and animations</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-palette"></span>
+                        <div>
+                            <strong>Customizable Accent Colors</strong>
+                            <p>Personalize your experience with custom theme colors</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-image"></span>
+                        <div>
+                            <strong>Custom Backgrounds</strong>
+                            <p>Set your own background images with blur effects</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-tune"></span>
+                        <div>
+                            <strong>Control Center</strong>
+                            <p>Quick access to settings and toggles from any screen</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-magnify"></span>
+                        <div>
+                            <strong>Universal Search</strong>
+                            <p>Search for apps from anywhere in the interface</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-music"></span>
+                        <div>
+                            <strong>Music Player</strong>
+                            <p>Xbox Music-inspired player with now playing screen</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-weather-cloudy"></span>
+                        <div>
+                            <strong>Weather App</strong>
+                            <p>Real-time weather information with OpenWeatherMap API</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-camera"></span>
+                        <div>
+                            <strong>Camera Integration</strong>
+                            <p>Access device camera with mirrored preview</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="mdi mdi-cellphone"></span>
+                        <div>
+                            <strong>iOS Web App Support</strong>
+                            <p>Install to home screen for a native app experience</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="about-section">
+                <h3>Technology</h3>
+                <p>Built with HTML5, CSS3, and vanilla JavaScript. Features include:</p>
+                <ul class="tech-list">
+                    <li>CSS3 animations and transforms</li>
+                    <li>Touch gesture detection</li>
+                    <li>Local storage for settings persistence</li>
+                    <li>Canvas API for background effects</li>
+                    <li>MediaDevices API for camera access</li>
+                    <li>Fetch API for weather data</li>
+                </ul>
+            </section>
+
+            <section class="about-section">
+                <h3>Credits</h3>
+                <p>Inspired by the original Windows Phone design language created by Microsoft. This project is a fan recreation and is not affiliated with Microsoft Corporation.</p>
+            </section>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="goBack()"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="goHome()"><span class="mif-windows mif-2x"></span></button>
+        <button onclick="openSearch()"><span class="mif-search mif-2x"></span></button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
