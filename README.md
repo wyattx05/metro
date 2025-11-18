@@ -29,6 +29,7 @@
     <td><img src="ss/Search.jpg" alt="Search Page" height="350"></td>
     <td><img src="ss/ControlCenter.jpg" alt="Control Center" height="350"></td>
     <td><img src="ss/WeatherApp.png" alt="Weather App" height="350"></td>
+    <td><img src="ss/Lockscreen.png" alt="Lockscreen" height="350"></td>
   </tr>
   <tr>
     <td align="center">Camera App</td>
@@ -36,9 +37,10 @@
     <td align="center">Search Page</td>
     <td align="center">Control Center</td>
     <td align="center">Weather App</td>
+    <td align="center">Lockscreen</td>
   </tr>
 </table>
 
 ### Features To Add
 - Working Music & Weather App 
-_ Fix IoS Web App Glitches
+- Fix IOS Web App Glitches

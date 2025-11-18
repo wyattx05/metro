@@ -3,6 +3,9 @@ window.onload = function () {
     displayDate();
     quoteLiveTile();
     
+    // Initialize lockscreen
+    initLockscreen();
+    
     // Check if we should open search page
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('openSearch') === 'true') {
@@ -14,6 +17,140 @@ window.onload = function () {
     
     // Handle internal navigation for iOS web app mode
     handleInternalLinks();
+}
+
+// Lockscreen functionality
+let lockscreenTouchStartY = 0;
+let lockscreenTouchCurrentY = 0;
+
+function initLockscreen() {
+    const lockscreen = document.getElementById('lockscreen');
+    if (!lockscreen) return;
+    
+    // Update lockscreen time and date
+    updateLockscreenTime();
+    setInterval(updateLockscreenTime, 1000);
+    
+    let isSwiping = false;
+    
+    // Prevent scrolling on body when lockscreen is visible
+    document.body.style.overflow = 'hidden';
+    
+    // Click/tap to unlock
+    lockscreen.addEventListener('click', (e) => {
+        // Don't unlock if clicking on buttons in nav bar
+        if (!e.target.closest('.lockscreen-nav-bar') && !isSwiping) {
+            unlockScreen();
+        }
+    });
+    
+    // Touch events for swipe up to unlock
+    lockscreen.addEventListener('touchstart', (e) => {
+        lockscreenTouchStartY = e.touches[0].clientY;
+        isSwiping = false;
+    }, { passive: false });
+    
+    lockscreen.addEventListener('touchmove', (e) => {
+        lockscreenTouchCurrentY = e.touches[0].clientY;
+        const deltaY = lockscreenTouchCurrentY - lockscreenTouchStartY;
+        
+        // Prevent default to stop scrolling underneath
+        e.preventDefault();
+        
+        // Only allow swipe up (negative delta)
+        if (deltaY < 0) {
+            isSwiping = true;
+            lockscreen.classList.add('swiping');
+            // Move lockscreen up as user swipes
+            lockscreen.style.transform = `translateY(${deltaY}px)`;
+        }
+    }, { passive: false });
+    
+    lockscreen.addEventListener('touchend', (e) => {
+        const deltaY = lockscreenTouchCurrentY - lockscreenTouchStartY;
+        lockscreen.classList.remove('swiping');
+        
+        // If swiped up more than 100px, unlock
+        if (deltaY < -100) {
+            unlockScreen();
+        } else {
+            // Reset position
+            lockscreen.style.transform = '';
+        }
+        
+        // Reset swiping flag after a short delay
+        setTimeout(() => {
+            isSwiping = false;
+        }, 100);
+    });
+}
+
+function updateLockscreenTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    
+    const lockscreenTime = document.getElementById('lockscreen-time');
+    const lockscreenDate = document.getElementById('lockscreen-date');
+    
+    if (lockscreenTime) {
+        lockscreenTime.textContent = `${hours}:${minutes}`;
+    }
+    
+    if (lockscreenDate) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const dayName = days[now.getDay()];
+        const date = now.getDate();
+        const monthName = months[now.getMonth()];
+        lockscreenDate.textContent = `${dayName} ${date} ${monthName}`;
+    }
+}
+
+function unlockScreen() {
+    const lockscreen = document.getElementById('lockscreen');
+    if (lockscreen) {
+        lockscreen.classList.add('unlocked');
+        // Re-enable scrolling on body when unlocking
+        document.body.style.overflow = '';
+        
+        // Reset touch coordinates to prevent ghost gestures
+        touchstartX = 0;
+        touchendX = 0;
+        touchstartY = 0;
+        touchendY = 0;
+        
+        // Remove from DOM after animation
+        setTimeout(() => {
+            lockscreen.style.display = 'none';
+        }, 400);
+    }
+}
+
+function lockScreen() {
+    const lockscreen = document.getElementById('lockscreen');
+    if (lockscreen) {
+        lockscreen.style.display = 'flex';
+        lockscreen.classList.remove('unlocked');
+        lockscreen.style.transform = '';
+        // Prevent scrolling when locking
+        document.body.style.overflow = 'hidden';
+        // Update time when locking
+        updateLockscreenTime();
+        // Close control center if open
+        closeControlCenter();
+    }
+}
+
+function openCameraFromLockscreen() {
+    window.location.href = 'camera.html';
+}
+
+function openSearchFromLockscreen() {
+    unlockScreen();
+    setTimeout(() => {
+        toggleSearch();
+    }, 400);
 }
 
 // Prevent links from opening in mini browser on iOS web app
@@ -116,13 +253,22 @@ const swipeThreshold = 50;  // Minimum swipe distance in pixels
 const startScreen = document.getElementById('start-screen');
 const allApps = document.getElementById('app-center');
 const searchPage = document.getElementById('search-page');
+const lockscreen = document.getElementById('lockscreen');
 
 startScreen.addEventListener('touchstart', (e) => {
+  // Don't handle gestures if lockscreen is visible
+  if (lockscreen && lockscreen.style.display !== 'none' && !lockscreen.classList.contains('unlocked')) {
+    return;
+  }
   touchstartX = e.changedTouches[0].screenX;
   touchstartY = e.changedTouches[0].screenY;
 });
 
 startScreen.addEventListener('touchend', (e) => {
+  // Don't handle gestures if lockscreen is visible
+  if (lockscreen && lockscreen.style.display !== 'none' && !lockscreen.classList.contains('unlocked')) {
+    return;
+  }
   touchendX = e.changedTouches[0].screenX;
   touchendY = e.changedTouches[0].screenY;
   handleGesture(0);
@@ -130,6 +276,11 @@ startScreen.addEventListener('touchend', (e) => {
 
 // Global document listener to catch swipes when info page or search page is open
 document.addEventListener('touchstart', (e) => {
+  // Don't handle gestures if lockscreen is visible
+  if (lockscreen && lockscreen.style.display !== 'none' && !lockscreen.classList.contains('unlocked')) {
+    return;
+  }
+  
   if (allApps.classList.contains('open') || searchPage.classList.contains('active')) {
     touchstartX = e.changedTouches[0].screenX;
     touchstartY = e.changedTouches[0].screenY;
@@ -137,6 +288,11 @@ document.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 document.addEventListener('touchend', (e) => {
+  // Don't handle gestures if lockscreen is visible
+  if (lockscreen && lockscreen.style.display !== 'none' && !lockscreen.classList.contains('unlocked')) {
+    return;
+  }
+  
   if (allApps.classList.contains('open')) {
     touchendX = e.changedTouches[0].screenX;
     touchendY = e.changedTouches[0].screenY;
@@ -490,6 +646,13 @@ function displaySearchResults(apps) {
 
 function toggleSearch() {
   const startScreen = document.getElementById('start-screen');
+  const lockscreen = document.getElementById('lockscreen');
+  
+  // Don't toggle search if lockscreen is visible
+  if (lockscreen && lockscreen.style.display !== 'none' && !lockscreen.classList.contains('unlocked')) {
+    return;
+  }
+  
   searchPage.classList.toggle('active');
   
   if (searchPage.classList.contains('active')) {
@@ -511,7 +674,8 @@ function toggleSearch() {
 // Get all tiles from the main grid
 const allTiles = Array.from(document.querySelectorAll('.tile')).map(tile => {
   const iconName = tile.querySelector('.icon-name')?.textContent || '';
-  const href = tile.getAttribute('href') || '#';
+  const anchorTag = tile.querySelector('a');
+  const href = anchorTag ? anchorTag.getAttribute('href') : '#';
   const icon = tile.querySelector('.mdi, svg')?.outerHTML || '';
   
   return {

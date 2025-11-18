@@ -3,15 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="shortcut icon" href="./icons/appbar.os.windows.8.png" type="image/x-icon">
     <link href="https://cdn.metroui.org.ua/current/icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lockscreen.css">
     <title>Windows Phone</title>
 </head>
 <body>
+    <!-- Lockscreen -->
+    <div class="lockscreen" id="lockscreen">
+        <div class="lockscreen-top">
+            <div class="lockscreen-status-icons">
+                <span class="mdi mdi-wifi"></span>
+                <span class="mdi mdi-signal"></span>
+                <span class="mdi mdi-bluetooth"></span>
+            </div>
+            <div class="lockscreen-battery">
+                <span class="mdi mdi-battery"></span>
+            </div>
+        </div>
+
+        <div class="lockscreen-center">
+            <div class="lockscreen-time" id="lockscreen-time">10:39</div>
+            <div class="lockscreen-date" id="lockscreen-date">Thursday 22 July</div>
+        </div>
+
+        <div class="lockscreen-bottom">
+            <div class="lockscreen-nav-bar">
+                <button onclick="openCameraFromLockscreen()">
+                    <span class="mdi mdi-camera mdi-24px"></span>
+                </button>
+                <button>
+                    <span class="mif-windows mif-2x"></span>
+                </button>
+                <button onclick="openSearchFromLockscreen()">
+                    <span class="mif-search mif-2x"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <canvas id="blur-canvas"></canvas>
     
     <!-- Control Center Overlay -->
@@ -78,7 +110,7 @@
                 </div>
                 <span>Accounts</span>
             </div>
-            <div class="action-btn">
+            <div class="action-btn" onclick="lockScreen()">
                 <div class="action-icon">
                     <span class="mdi mdi-lock"></span>
                 </div>
