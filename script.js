@@ -11,6 +11,26 @@ window.onload = function () {
             toggleSearch();
         }, 100);
     }
+    
+    // Handle internal navigation for iOS web app mode
+    handleInternalLinks();
+}
+
+// Prevent links from opening in mini browser on iOS web app
+function handleInternalLinks() {
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('a');
+        if (!target) return;
+        
+        const href = target.getAttribute('href');
+        if (!href) return;
+        
+        // Check if it's an internal HTML page
+        if (href.endsWith('.html') || href === 'index.html') {
+            e.preventDefault();
+            window.location.href = href;
+        }
+    }, false);
 }
 
 document.addEventListener('contextmenu', (e) => {
