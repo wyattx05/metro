@@ -2,6 +2,15 @@ window.onload = function () {
     displayClock();
     displayDate();
     quoteLiveTile();
+    
+    // Check if we should open search page
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('openSearch') === 'true') {
+        // Small delay to ensure page is loaded
+        setTimeout(() => {
+            toggleSearch();
+        }, 100);
+    }
 }
 
 document.addEventListener('contextmenu', (e) => {
@@ -416,6 +425,20 @@ function goBack() {
   } else {
     // If on home page, toggle info panel
     toggleAllApps();
+  }
+}
+
+function openSearch() {
+  // Check if we're on an app page (not index.html)
+  const currentPage = window.location.pathname;
+  const isAppPage = !currentPage.endsWith('index.html') && !currentPage.endsWith('/');
+  
+  if (isAppPage) {
+    // Navigate to home and open search
+    window.location.href = 'index.html?openSearch=true';
+  } else {
+    // Already on home page, just toggle search
+    toggleSearch();
   }
 }
 

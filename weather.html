@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body style="background: #000;">
+    <div class="status-bar" id="status-bar">
+        <span id="clock"></span>
+    </div>
+
+    <div class="weather-page">
+        <div class="location-header">
+            <h2 id="location">TOKYO, JP</h2>
+        </div>
+
+        <div class="current-status">
+            <h1>right now next</h1>
+        </div>
+
+        <div class="condition-section">
+            <div class="weather-icon">
+                <span class="mdi mdi-weather-cloudy" style="font-size: 80px;"></span>
+            </div>
+            <div class="condition-info">
+                <div class="condition-label">CONDITION</div>
+                <div class="condition-value" id="condition">partly cloudy</div>
+            </div>
+        </div>
+
+        <div class="weather-details">
+            <div class="weather-row">
+                <div class="weather-item">
+                    <div class="weather-label">TEMPERATURE</div>
+                    <div class="weather-value" id="temperature">22°C</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">FEELS LIKE</div>
+                    <div class="weather-value" id="feels-like">25°C</div>
+                </div>
+            </div>
+
+            <div class="weather-row">
+                <div class="weather-item">
+                    <div class="weather-label">HUMIDITY</div>
+                    <div class="weather-value" id="humidity">87%</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">PRECIPITATION</div>
+                    <div class="weather-value" id="precipitation">0 mm</div>
+                </div>
+            </div>
+
+            <div class="weather-row">
+                <div class="weather-item">
+                    <div class="weather-label">WIND SPEED</div>
+                    <div class="weather-value" id="wind-speed">4.1 km/h</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">WIND DIRECTION</div>
+                    <div class="weather-value" id="wind-direction">southwest</div>
+                </div>
+            </div>
+
+            <div class="weather-row single">
+                <div class="weather-item">
+                    <div class="weather-label">PRESSURE</div>
+                    <div class="weather-value" id="pressure">1015.4 hPa</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forecast-time" id="forecast-time">
+            Forecast as of 6 minutes ago
+        </div>
+
+        <div class="weather-actions">
+            <button class="action-btn">
+                <span class="mif-search mif-2x"></span>
+            </button>
+            <button class="action-btn">
+                <span class="mdi mdi-refresh" style="font-size: 2rem;"></span>
+            </button>
+            <button class="more-btn">...</button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="goBack()"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="goHome()"><span class="mif-windows mif-2x"></span></button>
+        <button onclick="openSearch()"><span class="mif-search mif-2x"></span></button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="weather.js"></script>
+</body>
+</html>
