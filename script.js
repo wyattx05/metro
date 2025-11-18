@@ -3,11 +3,22 @@ window.onload = function () {
     displayDate();
     quoteLiveTile();
     
-    // Initialize lockscreen
-    initLockscreen();
+    // Only show lockscreen on initial load, not when navigating back from apps
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromApp = urlParams.get('fromApp') === 'true';
+    
+    if (!fromApp) {
+        // Initialize lockscreen only on fresh load
+        initLockscreen();
+    } else {
+        // Hide lockscreen if navigating from an app
+        const lockscreen = document.getElementById('lockscreen');
+        if (lockscreen) {
+            lockscreen.style.display = 'none';
+        }
+    }
     
     // Check if we should open search page
-    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('openSearch') === 'true') {
         // Small delay to ensure page is loaded
         setTimeout(() => {
@@ -574,9 +585,9 @@ function goHome() {
     document.body.style.transition = 'opacity 0.3s ease-out';
     document.body.style.opacity = '0';
     
-    // Navigate to home after animation
+    // Navigate to home after animation with fromApp parameter
     setTimeout(() => {
-      window.location.href = 'index.html';
+      window.location.href = 'index.html?fromApp=true';
     }, 300);
   } else {
     // If already on home page, toggle info panel
