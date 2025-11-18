@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="./icons/appbar.os.windows.8.png" type="image/x-icon">
     <link href="https://cdn.metroui.org.ua/current/icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css">
@@ -340,20 +340,25 @@
     
     <!-- Search Page -->
     <div class="search-page" id="search-page">
-        <div class="search-header">
-            <input type="text" id="search-input" placeholder="search" autocomplete="off">
+        <div class="header">
+            <h1>Search</h1>
         </div>
-        <div class="search-results" id="search-results">
-            <div class="search-category">
-                <h3>apps</h3>
-                <div class="search-apps" id="search-apps"></div>
+        <div class="content">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="search" autocomplete="off">
+            </div>
+            <div class="search-results" id="search-results">
+                <div class="search-category">
+                    <h3>apps</h3>
+                    <div class="search-apps" id="search-apps"></div>
+                </div>
             </div>
         </div>
     </div>
     
     <div class="nav-bar">
-        <button onclick="toggleAllApps()"><span class="mif-backspace mif-2x"></span></button>
-        <button onclick="toggleAllApps()"><span class="mif-windows mif-2x"></span></button>
+        <button onclick="goBack()"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="goHome()"><span class="mif-windows mif-2x"></span></button>
         <button onclick="toggleSearch()" id="search-button"><span class="mif-search mif-2x"></span></button>
     </div>
     <div class="context-menu" id="custom-menu">

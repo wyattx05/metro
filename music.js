@@ -2,6 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.music-tab');
     const tabContents = document.querySelectorAll('.music-tab-content');
+    const nowPlayingScreen = document.getElementById('now-playing-screen');
+    const artistItems = document.querySelectorAll('.artist-item');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
@@ -16,4 +18,46 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(targetTab).classList.add('active');
         });
     });
+
+    // Open now playing screen when clicking a song
+    artistItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const songName = this.querySelector('.artist-name').textContent;
+            openNowPlaying(songName);
+        });
+    });
+});
+
+function openNowPlaying(songName) {
+    const nowPlayingScreen = document.getElementById('now-playing-screen');
+    const trackTitleTop = document.querySelector('.track-info-top .track-title');
+    const trackDetails = document.querySelector('.track-details div:first-child');
+    
+    trackTitleTop.textContent = songName;
+    trackDetails.textContent = songName;
+    nowPlayingScreen.classList.add('active');
+}
+
+function closeNowPlaying() {
+    const nowPlayingScreen = document.getElementById('now-playing-screen');
+    nowPlayingScreen.classList.remove('active');
+}
+
+// Play/pause toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    let isPlaying = false;
+
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', function() {
+            isPlaying = !isPlaying;
+            const icon = this.querySelector('span');
+            
+            if (isPlaying) {
+                icon.className = 'mif-pause';
+            } else {
+                icon.className = 'mif-play';
+            }
+        });
+    }
 });

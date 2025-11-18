@@ -80,41 +80,68 @@ function toggleAllApps() {
 
 let touchstartX = 0;
 let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
 const swipeThreshold = 50;  // Minimum swipe distance in pixels
 
 const startScreen = document.getElementById('start-screen');
 const allApps = document.getElementById('app-center');
+const searchPage = document.getElementById('search-page');
 
 startScreen.addEventListener('touchstart', (e) => {
   touchstartX = e.changedTouches[0].screenX;
+  touchstartY = e.changedTouches[0].screenY;
 });
 
 startScreen.addEventListener('touchend', (e) => {
   touchendX = e.changedTouches[0].screenX;
+  touchendY = e.changedTouches[0].screenY;
   handleGesture(0);
 });
 
-allApps.addEventListener('touchstart', (e) => {
-  touchstartX = e.changedTouches[0].screenX;
-});
+// Global document listener to catch swipes when info page or search page is open
+document.addEventListener('touchstart', (e) => {
+  if (allApps.classList.contains('open') || searchPage.classList.contains('active')) {
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+  }
+}, { passive: true });
 
-allApps.addEventListener('touchend', (e) => {
-  touchendX = e.changedTouches[0].screenX;
-  handleGesture(1);
-});
+document.addEventListener('touchend', (e) => {
+  if (allApps.classList.contains('open')) {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    const swipeDistanceX = touchendX - touchstartX;
+    const swipeDistanceY = Math.abs(touchendY - touchstartY);
+    
+    // Left swipe and mostly horizontal (not vertical scroll)
+    if (swipeDistanceX < -swipeThreshold && swipeDistanceY < swipeThreshold * 2) {
+      toggleAllApps();
+    }
+  } else if (searchPage.classList.contains('active')) {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    const swipeDistanceX = touchendX - touchstartX;
+    const swipeDistanceY = Math.abs(touchendY - touchstartY);
+    
+    // Right swipe and mostly horizontal (not vertical scroll)
+    if (swipeDistanceX > swipeThreshold && swipeDistanceY < swipeThreshold * 2) {
+      toggleSearch();
+    }
+  }
+}, { passive: true });
 
 function handleGesture(pointer) {
   const swipeDistance = touchendX - touchstartX;
-
-  if (pointer === 1) {
-    // Info page is open - swipe left to right to close
+  
+  if (pointer === 0) {
+    // Main screen - swipe right to open info page, swipe left to open search page
     if (swipeDistance > swipeThreshold) {
+      // Swipe right - open info page
       toggleAllApps();
-    }
-  } else if (pointer === 0) {
-    // Main screen - swipe left (negative distance) to open info page
-    if (swipeDistance < -swipeThreshold) {
-      toggleAllApps();
+    } else if (swipeDistance < -swipeThreshold) {
+      // Swipe left - open search page
+      toggleSearch();
     }
   }
 }
@@ -137,9 +164,8 @@ async function quoteLiveTile() {
 function flipTile() {
   const tile = document.getElementById('quote-tile');
   tile.classList.toggle('flipped');
-  setTimeout(() => {
-    quoteLiveTile();
-  }, 1000);
+  // Fetch new quote immediately so it's ready when tile flips back
+  quoteLiveTile();
 }
 
 function applyTileColor(tileColor) {
@@ -275,9 +301,15 @@ statusBar.addEventListener('touchmove', (e) => {
   currentY = e.touches[0].clientY;
   const deltaY = currentY - startY;
   
-  // Only open when swiping down from status bar
-  if (deltaY > 0 && deltaY < 200) {
-    controlCenter.style.transform = `translateY(${deltaY - 100}%)`;
+  // Only open when swiping down from status bar, clamp between 0 and the control center height
+  if (deltaY > 0) {
+    // Limit deltaY so it doesn't go past 0 (fully visible)
+    const clampedDelta = Math.min(deltaY, 100);
+    const translateValue = clampedDelta - 100;
+    // Don't go past 0 (fully open position)
+    if (translateValue <= 0) {
+      controlCenter.style.transform = `translateY(${translateValue}%)`;
+    }
   }
 }, { passive: true });
 
@@ -332,12 +364,59 @@ function openControlCenter() {
   controlCenter.classList.add('active');
   controlOverlay.classList.add('active');
   controlCenter.style.transform = '';
+  // Prevent scrolling on body/start screen when control center is open
+  document.body.style.overflow = 'hidden';
+  startScreen.style.overflow = 'hidden';
 }
 
 function closeControlCenter() {
   controlCenter.classList.remove('active');
   controlOverlay.classList.remove('active');
   controlCenter.style.transform = '';
+  // Re-enable scrolling when control center is closed
+  document.body.style.overflow = '';
+  startScreen.style.overflow = '';
+}
+
+// Navigation button functions
+function goHome() {
+  // Check if we're on an app page (not index.html)
+  const currentPage = window.location.pathname;
+  const isAppPage = !currentPage.endsWith('index.html') && !currentPage.endsWith('/');
+  
+  if (isAppPage) {
+    // Add fade-out animation
+    document.body.style.transition = 'opacity 0.3s ease-out';
+    document.body.style.opacity = '0';
+    
+    // Navigate to home after animation
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 300);
+  } else {
+    // If already on home page, toggle info panel
+    toggleAllApps();
+  }
+}
+
+function goBack() {
+  // Check if we're on an app page
+  const currentPage = window.location.pathname;
+  const isAppPage = !currentPage.endsWith('index.html') && !currentPage.endsWith('/');
+  
+  if (isAppPage) {
+    // Add slide-out animation
+    document.body.style.transition = 'transform 0.3s ease-out';
+    document.body.style.transform = 'translateX(100%)';
+    
+    // Navigate back after animation
+    setTimeout(() => {
+      window.history.back();
+    }, 300);
+  } else {
+    // If on home page, toggle info panel
+    toggleAllApps();
+  }
 }
 
 // Toggle quick actions
@@ -348,9 +427,23 @@ document.querySelectorAll('.quick-action').forEach(btn => {
 });
 
 // Search Page Functionality
-const searchPage = document.getElementById('search-page');
 const searchInput = document.getElementById('search-input');
 const searchApps = document.getElementById('search-apps');
+const searchResults = document.getElementById('search-results');
+
+// Function to display apps in search results
+function displaySearchResults(apps) {
+  if (apps.length === 0) {
+    searchApps.innerHTML = '<div class="search-no-results">no results found</div>';
+  } else {
+    searchApps.innerHTML = apps.map(tile => `
+      <a href="${tile.href}" class="search-app-item">
+        <div class="search-app-icon">${tile.icon}</div>
+        <div class="search-app-name">${tile.name}</div>
+      </a>
+    `).join('');
+  }
+}
 
 function toggleSearch() {
   const startScreen = document.getElementById('start-screen');
@@ -359,6 +452,8 @@ function toggleSearch() {
   if (searchPage.classList.contains('active')) {
     // Move apps to the left when search opens
     startScreen.classList.add('search-open');
+    // Display all apps when opening
+    displaySearchResults(allTiles);
     // Focus input when opening
     setTimeout(() => searchInput.focus(), 100);
   } else {
@@ -388,7 +483,8 @@ searchInput.addEventListener('input', function() {
   const query = this.value.toLowerCase().trim();
   
   if (query === '') {
-    searchApps.innerHTML = '';
+    // Show all apps when search is empty
+    displaySearchResults(allTiles);
     return;
   }
   
@@ -397,17 +493,8 @@ searchInput.addEventListener('input', function() {
     tile.name.toLowerCase().includes(query)
   );
   
-  // Display results
-  if (results.length === 0) {
-    searchApps.innerHTML = '<div class="search-no-results">no results found</div>';
-  } else {
-    searchApps.innerHTML = results.map(tile => `
-      <a href="${tile.href}" class="search-app-item">
-        <div class="search-app-icon">${tile.icon}</div>
-        <div class="search-app-name">${tile.name}</div>
-      </a>
-    `).join('');
-  }
+  // Display filtered results
+  displaySearchResults(results);
 });
 
 // Add swipe-to-close for search page

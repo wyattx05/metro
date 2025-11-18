@@ -27,39 +27,14 @@
             <div class="music-tab-content active" id="artists">
                 <div class="artist-item">
                     <span class="play-icon">▶</span>
-                    <span class="artist-name">Bassnectar</span>
-                </div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Beyoncé</span>
-                </div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Boyce Avenue</span>
-                </div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Brian Eno</span>
-                </div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Bruno Mars</span>
-                </div>
-                <div class="letter-divider">C</div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Colette</span>
+                    <span class="artist-name">Artist Name</span>
                 </div>
             </div>
 
             <div class="music-tab-content" id="albums">
                 <div class="artist-item">
                     <span class="play-icon">▶</span>
-                    <span class="artist-name">Album 1</span>
-                </div>
-                <div class="artist-item">
-                    <span class="play-icon">▶</span>
-                    <span class="artist-name">Album 2</span>
+                    <span class="artist-name">Album Title</span>
                 </div>
             </div>
 
@@ -72,13 +47,65 @@
                     <span class="play-icon">▶</span>
                     <span class="artist-name">Song 2</span>
                 </div>
+                <div class="artist-item">
+                    <span class="play-icon">▶</span>
+                    <span class="artist-name">Song 3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Now Playing Screen -->
+    <div class="now-playing-screen" id="now-playing-screen">
+        <div class="now-playing-header">
+            <h2>NOW PLAYING</h2>
+            <button class="more-options">...</button>
+        </div>
+        
+        <div class="now-playing-content">
+            <div class="track-info-top">
+                <div class="track-title">Song Title</div>
+                <div class="track-artist">by Artist Name</div>
+            </div>
+            
+            <div class="album-art">
+                <span class="mdi mdi-music-note" style="font-size: 120px; color: rgba(255,255,255,0.3);"></span>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+                <div class="time-labels">
+                    <span class="time-current">0:00</span>
+                    <span class="time-total">-0:00</span>
+                </div>
+            </div>
+            
+            <div class="track-details">
+                <div>Song Title</div>
+                <div>by Artist Name</div>
+            </div>
+            
+            <div class="playback-controls">
+                <button class="control-btn" id="prev-btn">
+                    <span class="mif-previous"></span>
+                </button>
+                <button class="control-btn play-pause-btn" id="play-pause-btn">
+                    <span class="mif-play"></span>
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <span class="mif-next"></span>
+                </button>
             </div>
         </div>
     </div>
 
     <div class="nav-bar">
-        <button onclick="window.location.href='index.html'"><span class="mif-backspace mif-2x"></span></button>
-        <button onclick="window.location.href='index.html'"><span class="mif-windows mif-2x"></span></button>
+        <button onclick="closeNowPlaying()"><span class="mif-backspace mif-2x"></span></button>
+        <button onclick="goHome()"><span class="mif-windows mif-2x"></span></button>
         <button><span class="mif-search mif-2x"></span></button>
     </div>
 
