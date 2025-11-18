@@ -1,7 +1,9 @@
 ## Windows Phone Web UI
 
 ## Forked from 4rnv/metro
-### Make Launcher more functional, starting with it opening IOS apps and overtime make native apps for emulator
+
+### Goal
+## Make Launcher more functional, starting with it opening IOS apps and overtime make native apps for emulator.
 
 ### Original Features before Forked:
 
@@ -26,16 +28,16 @@
     <td><img src="ss/Music.jpg" alt="Music App" height="350"></td>
     <td><img src="ss/Search.jpg" alt="Search Page" height="350"></td>
     <td><img src="ss/ControlCenter.jpg" alt="Control Center" height="350"></td>
+    <td><img src="ss/WeatherApp.png" alt="Weather App" height="350"></td>
   </tr>
   <tr>
     <td align="center">Camera App</td>
     <td align="center">Music App</td>
     <td align="center">Search Page</td>
     <td align="center">Control Center</td>
+    <td align="center">Weather App</td>
   </tr>
 </table>
 
 ### Features To Add
-- Weather App
-- Working Music App
-- Smoother Animations & Better Functionality
+- Working Music & Weather App 
