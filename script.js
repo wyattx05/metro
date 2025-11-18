@@ -11,43 +11,27 @@ window.onload = function () {
             toggleSearch();
         }, 100);
     }
+    
+    // Handle internal navigation for iOS web app mode
+    handleInternalLinks();
 }
 
-// iOS PWA: Prevent links from opening in mini browser when in standalone mode
-(function(document, navigator, standalone) {
-    // Check if running in standalone mode
-    if ((standalone in navigator) && navigator[standalone]) {
-        var killDefaultBehavior = function(e) {
-            var target = e.target;
-            
-            // Traverse up the DOM tree until an anchor tag (<a>) or html is found
-            while (target && !/^(a|html)$/i.test(target.nodeName)) {
-                target = target.parentNode;
-            }
-
-            // Check if it's a valid link and points to the same domain
-            if (target && 'href' in target && 
-                (target.href.indexOf(document.location.protocol + '//' + document.location.host) !== -1 ||
-                 target.href.indexOf('http') !== 0)) {
-                
-                // Skip external links and links with target="_blank"
-                if (target.getAttribute('target') === '_blank' || 
-                    target.href.indexOf('http') === 0 && 
-                    target.href.indexOf(document.location.host) === -1) {
-                    return;
-                }
-                
-                // Prevent the default link action (opening a new browser)
-                e.preventDefault();
-                // Manually change the location within the current view
-                document.location.href = target.href;
-            }
-        };
-
-        // Add a click listener to the entire document
-        document.addEventListener('click', killDefaultBehavior, false);
-    }
-})(document, window.navigator, 'standalone');
+// Prevent links from opening in mini browser on iOS web app
+function handleInternalLinks() {
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('a');
+        if (!target) return;
+        
+        const href = target.getAttribute('href');
+        if (!href) return;
+        
+        // Check if it's an internal HTML page
+        if (href.endsWith('.html') || href === 'index.html') {
+            e.preventDefault();
+            window.location.href = href;
+        }
+    }, false);
+}
 
 document.addEventListener('contextmenu', (e) => {
   e.preventDefault();
